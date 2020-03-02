@@ -1,4 +1,3 @@
-# TFG-plantillas
-Plantillas en LaTeX para la confección del anteproyecto, la memoria y las transparencias del TFG (Trabajo Fin de Grado) de la UAL.
+# Parallel intercom TFG
 
-[Normativa](https://cms.ual.es/idc/groups/public/@centro/@politecnica/documents/documento/normativatfginformatica.docx).
+Usando el paralalelismo de datos para aumentar las prestaciones del intercomunicador intercom-TM.
