@@ -28,39 +28,40 @@
 
 \begin{center}
   \vspace{4cm}
-  {\color{white} \Huge \textbf{Explotando el Paralelismo de Datos en el Intercomunicador intercom-TM}}
+  {\color{white} \Huge \textbf{Paralelismo de Datos en el Intercomunicador intercom-TM}}
 \end{center}
 
 \Large
 
 \vspace{16.5ex}
 \begin{tabular}{ll}
-  ~~~~~~~~~~~~~~~~~ & Nombre del estudiante
+  ~~~~~~~~~ & Nombre del estudiante
 \end{tabular}
 
 \vspace{1.2cm}
 \begin{tabular}{ll}
-  ~~~~~~~~~~~~~~~~~ & Grado en Ingeniería Informática
+  ~~~~~~~~~ & Grado en Ingeniería Informática
 \end{tabular}
 
 \vspace{1.1cm}
 \begin{tabular}{ll}
-  ~~~~~~~~~~~~~~~~~ & Vicente González Ruiz
+  ~~~~~~~~~ & Vicente González Ruiz
 \end{tabular}
 
 \vspace{1.2cm}
 \begin{tabular}{ll}
-  ~~~~~~~~~~~~~~~~~ & Departamento de Informática
+  ~~~~~~~~~ & Departamento de Informática
 \end{tabular}
 
 \vspace{0.95cm}
 \begin{tabular}{ll}
-  ~~~~~~~~~~~~~~~~~ & Trabajo Técnico
+  ~~~~~~~~~ & Trabajo Técnico
 \end{tabular}
 
 \vspace{0.95cm}
 \begin{tabular}{ll}
-  ~~~~~~~~~~~~~~~~~ & Paralelismo de Datos, audio, intercomunicador, procesamiento en tiempo real
+  ~~~~~~~~~ & Paralelismo de Datos, Audio, Intercomunicador, \\
+  ~~~~~~~~~ & Procesamiento en Tiempo Real
 \end{tabular}
 
 \clearpage
@@ -70,71 +71,115 @@
 \normalsize
 
 \section{Introducción}
-En esta sección se comentarán las características del problema a resolver y los antecedentes del TFG. Las referencias bibliográficas se citan así \cite{einstein1922kosmologische}.
+Un intercomunicador (intercom en inglés), es un dispositivo que
+permite a dos o más usuarios comunicarse en tiempo real. Normalmente
+sólo transmiten sonido, aunque también pueden usar imágenes
+(vídeos). Se usan en los portales de las casas para saber quién está
+llamando en la puerta, lo usan los motoristas para hablar entre ellos
+cuando se desplazan y (lógicamente) llevan cascos, y se usa en
+aplicaciones de comunicación a través de Internet, como Skype,
+WhatsApp, etc.
+
+El intercomunicador intercom-TM es una aplicación desarrollada en la
+Universidad de Almería por los alumnos de la asignatura de Tecnologías
+Multimedia~\cite{intercom-TM}.
 
 \section{Objetivos y justificación}
-En esta sección se comentará el objetivo principal a conseguir y el por qué de estos.
+El objetivo de este TFG es mejorar la implementación actual de
+intercom-TM, aprovechando el paralelismo de
+datos~\cite{pacheco2011introduction}. Básicamente se trata de
+aprovechar las posibilidades multicore de la mayoría de las
+computadoras actuales para incrementar el desempeño de
+intercom-TM. Más concretamente, los objetivos que se desean alcanzar
+son:
+\begin{enumerate}
+\item Reimplementar intercom-TM usando el paradigma de programación de
+  paralelismo de datos, que básicamente consiste en aplicar el
+  algoritmo actualmente usado en la versión secuencial sobre bloques
+  de datos, de forma concurrente. Esto permitirá aprovechar un número
+  de cores de nuestro dispositivo (si los hubiera) superior a 1.
+\item Determinar la carga de trabajo~\cite{workload} máxima asignada a
+  cada core, en función de los diferentes parámetros de funcionamiento
+  que intercom-TM posee. Esto permitirá conocer cómo de bueno es el
+  balanceo de la carga entre cores.
+\end{enumerate}
 
 \section{Fases de desarrollo}
-En esta sección se comentarán las distintas fases en las que se ha dividido el trabajo a realizar.
-
-A modo e ejemplo, se contemplan las siguientes unidades de trabajo (véase la Figura~\ref{fig:temporizacion}):
+Se preveen las siguientes unidades de trabajo y temporizaciones (véase
+la Figura~\ref{fig:temporizacion}):
 \begin{enumerate}
-  \item {ESTUDIO:} Estudio de transformadas, transformadas discretas,
-    codificación de sub-bandas y filtrado por paso de sub-bandas y
-    flujo óptico de imagen (60 h).
-  \item {IDENTIFICACIÓN}: Identificación y selección de bibliotecas disponibles para
-    cálculo óptico de imagen en el estado de arte actual (40 h).
-  \item {INSTALACIÓN}: Instalación y configuración de las bibliotecas en el entorno
-    de desarrollo (30h).
-  \item {DESARROLLO}: Desarrollo para el cálculo de la estimación del flujo óptico
-    de imagen (50h).
-  \item {IMPLEMENTACIÓN}: Implementación del cálculo de la estimación del flujo óptimo
-    al códec MCDWT (50h).
-  \item {EVALUACIÓN}: Evaluación y pruebas del códec MCDWT (20h).
-  \item {IMPLANTACIÓN}: Identificar limitaciones o incompatibilidades de hardware y
-    software en otros dispositivos/plataformas de las bibliotecas
-    usadas (20h).
-  \item {REDACCIÓN}: Redacción y correcciones de la memoria previas a la
-    presentación del TFM (30h).
+  \item {IDENTIFICACIÓN}: Identificación y comprensión de los
+    requerimientos y objetivos planteados (10 h).
+  \item {ANÁLISIS:} Estudio y análisis de la implementación actual de
+    intercom-TM, comprendiendo los algoritmos que utiliza (60 h).
+  \item {APROVISIONAMIENTO}: Instalación y configuración del entorno
+    de desarrollo y ejecución: Linux y Python (10h).
+  \item {IMPLEMENTACIÓN}: Implementación de la versión paralela de
+    intercom-TM (60h).
+  \item {EVALUACIÓN}: Evaluación de la solución y cuantificación del
+    grado de consecución de los objetivos (30h).
+  \item {REDACCIÓN}: Redacción de la memoria (30h).
 \end{enumerate}
 
 \begin{figure}
   \begin{center}
     \resizebox{\columnwidth}{!}{
-      \begin{ganttchart}{1}{30}{10}
-        \gantttitle{Bloques de 10 horas}{30} \\
-        \gantttitlelist{1,...,30}{1} \\
-        \ganttbar{REV. BIB.}{1}{5} \\ % 50h
-        \ganttlinkedbar{REV. SOFT.}{6}{10} \\ % 50 h
-        \ganttlinkedbar{CONF. \& PRUEBA}{11}{15} \\ % 50 h
-        \ganttlinkedbar{BATERÍA}{16}{20} \\ % 50 h
-        \ganttlinkedbar{EVALUACIÓN}{21}{25} \\ % 50 h
-        \ganttlinkedbar{REDACCIÓN}{26}{30} % 50 h
+      \begin{ganttchart}{1}{25}{10}
+        \gantttitle{Bloques de 10 horas}{25} \\
+        \gantttitlelist{1,...,25}{1} \\
+        \ganttbar{IDENTIFICACIÓN}{1}{2} \\ % 50h
+        \ganttlinkedbar{ANÁLISIS}{3}{9} \\ % 50 h
+        \ganttlinkedbar{APROVISIONAMIENTO}{10}{11} \\ % 50 h
+        \ganttlinkedbar{IMPLEMENTACIÓN}{12}{18} \\ % 50 h
+        \ganttlinkedbar{EVALUACIÓN}{19}{22} \\ % 50 h
+        \ganttlinkedbar{REDACCIÓN}{23}{25} % 50 h
       \end{ganttchart}
     }
   \end{center}
-  \caption{Temporización del trabajo.\label{fig:temporizacion}}
+  \caption{Temporización del TFG.\label{fig:temporizacion}}
 \end{figure}
 
 \section{Requerimientos}
-Los requerimientos (también llamados especificaciones) generalmente
-definen los parámetros de funcionamiento del software generado en este
-TFG. También pueden especificar cómo debe desarrollarse el producto.
+Los requerimientos de la versión paralela de intercom-TM son:
 
-\subsection{Generales y administrativos}
-Requerimientos generales pueden ser aspectos como: (1) análisis de la viabilidad, (2) detalle e idioma de la documentación, (3) tiempo máximo de desarrollo, (4) herramientas a usar, etc.
+\begin{itemize}
+\item Generales:
+  \begin{enumerate}
+  \item El estilo de programación debe seguir la norma
+    PEP-8~\cite{PEP8}.
+  \item El idioma usado, tanto para la definición de objetos, métodos,
+    variables, etc., como para los comentarios debe ser inglés.
+  \item Se usará el paragigma de programación orientado a
+    objetos~\cite{schach2008object} para ir obteniendo diferences
+    aproximaciones sucesivas al producto final.
+  \item El producto debe ejecutarse con éxito al menos en Linux,
+    Windows y OSX.
+  \end{enumerate}
+\item Específicos:
+  \begin{enumerate}
+  \item Deberán aprovecharse tantos cores como sea posible (la
+    aplicación corra con éxito).
+  \item Mediante experimentación, deberá comprobarse que la versión
+    paralela genera una carga máxima en los cores inferior a la carga
+    que genera la versión secuencial, para un determinado conjunto
+    (que puede cambiar) de parámetros de funcionamiento.
+  \end{enumerate}
+\end{itemize}
 
-Requerimientos administrativos pueden ser del tipo: (1) métricas de estimación de coste a usar, (2) normas y estándares de calidad que se deben cumplir, etc.
+\section{Resultados esperados}
+Los requerimientos (en definitiva, los objetivos) planteados
+anteriormente se vefificarán mediante experimentación.  Se definirán
+diferentes configuraciones típicas (por ejemplo, (1) transmisión de
+audio mono y baja tasa de muestreo de 8000 Hz, (2) tranmisión estereo
+y alta tasa de muestreo 48000 Hz) y se comprobará que los
+requerimientos específicos se consiguen en la solución encontrada.
 
-\subsection{Técnicos}
-Todos los demás requerimientos que no sean generales o administrativos, se entenderán como técnicos y se especificarán aquí.
-
-\section{Resultados y discusión}
-Esta sección evalua el producto desarollado, verificando que los requerimientos se verifican.
-
-\section{Conclusiones}
-Un breve resumen del producto desarrollado.
+\section{Conclusiones esperadas}
+Básicamente, se tratará de concluir si el modelo de paralelismo de
+datos proporcionado por Python a través de su API
+multiprocessing~\cite{multiprocessing} es adacuado (o no) para
+conseguir los objetivos definidos (véase la
+Sección~\ref{sec:objetivos}).
 
 \bibliographystyle{plain}
 \bibliography{../bibliografia}

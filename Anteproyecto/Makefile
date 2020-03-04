@@ -1,5 +1,5 @@
 include ../Makefile
 
-PDFs = monografico.pdf tecnico.pdf
+PDFs = tecnico.pdf
 
 default:	$(PDFs)
