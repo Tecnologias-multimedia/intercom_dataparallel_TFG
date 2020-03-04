@@ -1,4 +1,4 @@
-# Data Parallel intercom TFG
+# Data parallel intercom TFG
 
 Usando el paralalelismo de datos para aumentar las prestaciones del intercomunicador intercom-TM.
 
