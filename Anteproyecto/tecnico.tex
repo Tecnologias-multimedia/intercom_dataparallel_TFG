@@ -28,7 +28,7 @@
 
 \begin{center}
   \vspace{4cm}
-  {\color{white} \Huge \textbf{Paralelismo de Datos en el Intercomunicador intercom-TM}}
+  {\color{white} \Huge \textbf{Paralelismo de Datos en el Intercomunicador intercomTM}}
 \end{center}
 
 \Large
@@ -73,49 +73,59 @@
 \section{Introducción}
 Un intercomunicador (intercom en inglés), es un dispositivo que
 permite a dos o más usuarios comunicarse en tiempo real. Normalmente
-sólo transmiten sonido, aunque también pueden usar imágenes
+sólo transmiten sonido, aunque también pueden transmitir imágenes
 (vídeos). Se usan en los portales de las casas para saber quién está
 llamando en la puerta, lo usan los motoristas para hablar entre ellos
-cuando se desplazan y (lógicamente) llevan cascos, y se usa en
+cuando se desplazan y (lógicamente) llevan cascos, y se usan en
 aplicaciones de comunicación a través de Internet, como Skype,
 WhatsApp, etc.
 
-El intercomunicador intercom-TM es una aplicación desarrollada en la
+El intercomunicador intercomTM es una aplicación desarrollada en la
 Universidad de Almería por los alumnos de la asignatura de Tecnologías
-Multimedia~\cite{intercom-TM}.
+Multimedia~\cite{intercomTM}, y posee las siguientes características:
+\begin{enumerate}
+\item Permite transmitir audio mono y estereo.
+\item Permite elegir la frecuencia de muestreo.
+\item Se adapta al ancho de banda disponible, enviando una señal de
+  audio de calidad proporcional al ancho de banda.
+\item Permite controlar la latencia.
+\item Puede usarse en Internet.
+\end{enumerate}
 
 \section{Objetivos y justificación}
 El objetivo de este TFG es mejorar la implementación actual de
-intercom-TM, aprovechando el paralelismo de
-datos~\cite{pacheco2011introduction}. Básicamente se trata de
+intercomTM, aprovechando el paralelismo de
+datos~\cite{pacheco2011introduction}. Básicamente, se trata de
 aprovechar las posibilidades multicore de la mayoría de las
-computadoras actuales para incrementar el desempeño de
-intercom-TM. Más concretamente, los objetivos que se desean alcanzar
+computadoras actuales para incrementar el desempeño de intercomTM
+(por ejemplo, permitiendo mayores tasa de muestreo en dispositivos con
+poca potencia computacional, o aumentando las tasas de
+compresión). Más concretamente, los objetivos que se desean alcanzar
 son:
 \begin{enumerate}
-\item Reimplementar intercom-TM usando el paradigma de programación de
+\item Reimplementar intercomTM usando el paradigma de programación de
   paralelismo de datos, que básicamente consiste en aplicar el
   algoritmo actualmente usado en la versión secuencial sobre bloques
   de datos, de forma concurrente. Esto permitirá aprovechar un número
-  de cores de nuestro dispositivo (si los hubiera) superior a 1.
-\item Determinar la carga de trabajo~\cite{workload} máxima asignada a
-  cada core, en función de los diferentes parámetros de funcionamiento
-  que intercom-TM posee. Esto permitirá conocer cómo de bueno es el
-  balanceo de la carga entre cores.
+  de cores de nuestro dispositivo superior a 1 (si los hubiera).
+\item Maximizar el balanceo de la carga de trabajo~\cite{workload}
+  entre los diferentes cores, en función de los diferentes parámetros
+  de funcionamiento que intercomTM posee.
 \end{enumerate}
 
-\section{Fases de desarrollo}
+\section{Fases de desarrollo y estimación de su coste temporal}
 Se preveen las siguientes unidades de trabajo y temporizaciones (véase
 la Figura~\ref{fig:temporizacion}):
 \begin{enumerate}
   \item {IDENTIFICACIÓN}: Identificación y comprensión de los
     requerimientos y objetivos planteados (10 h).
   \item {ANÁLISIS:} Estudio y análisis de la implementación actual de
-    intercom-TM, comprendiendo los algoritmos que utiliza (60 h).
+    intercomTM, comprendiendo los algoritmos que utiliza (60 h).
   \item {APROVISIONAMIENTO}: Instalación y configuración del entorno
-    de desarrollo y ejecución: Linux y Python (10h).
+    de desarrollo y ejecución. Básicamente, Linux y Python (10h).
   \item {IMPLEMENTACIÓN}: Implementación de la versión paralela de
-    intercom-TM (60h).
+    intercomTM, en sucesivas versiones con niveles incrementales de
+    paralelismo (60h).
   \item {EVALUACIÓN}: Evaluación de la solución y cuantificación del
     grado de consecución de los objetivos (30h).
   \item {REDACCIÓN}: Redacción de la memoria (30h).
@@ -125,7 +135,7 @@ la Figura~\ref{fig:temporizacion}):
   \begin{center}
     \resizebox{\columnwidth}{!}{
       \begin{ganttchart}{1}{25}{10}
-        \gantttitle{Bloques de 10 horas}{25} \\
+        \gantttitle{Bloques de 10 horas (total, 250 h)}{25} \\
         \gantttitlelist{1,...,25}{1} \\
         \ganttbar{IDENTIFICACIÓN}{1}{2} \\ % 50h
         \ganttlinkedbar{ANÁLISIS}{3}{9} \\ % 50 h
@@ -140,7 +150,7 @@ la Figura~\ref{fig:temporizacion}):
 \end{figure}
 
 \section{Requerimientos}
-Los requerimientos de la versión paralela de intercom-TM son:
+Los requerimientos de la versión paralela de intercomTM son:
 
 \begin{itemize}
 \item Generales:
@@ -148,31 +158,35 @@ Los requerimientos de la versión paralela de intercom-TM son:
   \item El estilo de programación debe seguir la norma
     PEP-8~\cite{PEP8}.
   \item El idioma usado, tanto para la definición de objetos, métodos,
-    variables, etc., como para los comentarios debe ser inglés.
+    variables, etc., como para la documentación (incluyendo los
+    comentarios en el código fuente) debe ser inglés.
   \item Se usará el paragigma de programación orientado a
-    objetos~\cite{schach2008object} para ir obteniendo diferences
-    aproximaciones sucesivas al producto final.
-  \item El producto debe ejecutarse con éxito al menos en Linux,
+    objetos~\cite{schach2008object} para ir obteniendo diferentes
+    aproximaciones sucesivas del resultado final.
+  \item El producto debe ejecutarse con éxito, al menos, en Linux,
     Windows y OSX.
   \end{enumerate}
 \item Específicos:
   \begin{enumerate}
-  \item Deberán aprovecharse tantos cores como sea posible (la
-    aplicación corra con éxito).
+  \item Deberán aprovecharse tantos cores como sea posible, siempre y
+    cuando esto no genere un decremento del desempeño.
   \item Mediante experimentación, deberá comprobarse que la versión
     paralela genera una carga máxima en los cores inferior a la carga
-    que genera la versión secuencial, para un determinado conjunto
-    (que puede cambiar) de parámetros de funcionamiento.
+    que genera la versión secuencial (que sólo corre en un core), para
+    un determinado conjunto (que puede cambiar) de parámetros de
+    funcionamiento.
   \end{enumerate}
 \end{itemize}
 
 \section{Resultados esperados}
-Los requerimientos (en definitiva, los objetivos) planteados
-anteriormente se vefificarán mediante experimentación.  Se definirán
-diferentes configuraciones típicas (por ejemplo, (1) transmisión de
-audio mono y baja tasa de muestreo de 8000 Hz, (2) tranmisión estereo
-y alta tasa de muestreo 48000 Hz) y se comprobará que los
-requerimientos específicos se consiguen en la solución encontrada.
+Principalmente, se espera obtener la versión paralela de intercomTM.
+Este deberá satisfacer los requerimientos (en definitiva, los
+objetivos) planteados anteriormente, que se vefificarán mediante
+experimentación.  Se definirán diferentes configuraciones típicas (por
+ejemplo, (1) transmisión de audio mono, baja tasa de muestreo de 8000
+Hz, y bajo ancho de banda (2) tranmisión estereo, alta tasa de
+muestreo 48000 Hz, y ancho de banda no limitante) y se comprobará que
+los requerimientos específicos se consiguen en la solución encontrada.
 
 \section{Conclusiones esperadas}
 Básicamente, se tratará de concluir si el modelo de paralelismo de
